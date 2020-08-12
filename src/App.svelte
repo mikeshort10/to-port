@@ -94,6 +94,9 @@
     console.log(color);
     return `bg-${color}`;
   };
+
+  const isAttackable = (i: number): boolean =>
+    !!ships[i] && ships[i]?.team !== turn && !!area[i];
 </script>
 
 <main class="h-screen">
@@ -113,7 +116,7 @@
         {#each boardState as { isLand, isPlayer }, i}
           <div
             on:click={onClick(i)}
-            class={`${getTeamColor(i) || (area[i] ? `bg-red-${area[i]}00` : !isLand ? 'bg-blue-500' : getTeamColor(i) || 'bg-green-500')} h-4 w-4 border border-blue-600 ${ships[i] && ships[i]?.team !== turn && area[i] ? 'attackable' : ''}`} />
+            class={`${getTeamColor(i) || (area[i] ? `bg-red-${area[i]}00` : !isLand ? 'bg-blue-500' : getTeamColor(i) || 'bg-green-500')} h-4 w-4 border border-blue-600 ${isAttackable(i) ? 'attackable' : ''}`} />
 
           <!-- <TileComponent {isLand} isShip={false} onClick={onClick(i)} /> -->
         {/each}
