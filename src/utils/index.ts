@@ -6,6 +6,7 @@ export { changeWind } from "./changeWind";
 export { rollDie } from "./rollDie";
 export { getDistance } from "./getDistance";
 export { moveShip } from "./moveShip";
+export { reorientArea } from "./reorientArea";
 
 export const initShips = (): Record<number, Ship | undefined> => ({
   497: { team: 0, hasMoved: 0, lastTurn: -1 },

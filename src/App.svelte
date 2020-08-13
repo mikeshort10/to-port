@@ -9,6 +9,7 @@
     relocateShip,
     initForts,
     initArea,
+    reorientArea,
   } from "./utils";
   import ArrowIcon from "./components/ArrowIcon.svelte";
   import { pipe, tupled } from "fp-ts/lib/function";
@@ -59,6 +60,10 @@
       )
     );
 
+  const getUpdatedArea = (index: number, until: number) => {
+    return getArea(boardState, windDirection)(index, until);
+  };
+
   const showArea = (i: number) => {
     const ship = ships[i];
     if (ship == null || isTurn(ship) === false) {
@@ -68,7 +73,7 @@
       selectedShipIndex = undefined;
       return;
     }
-    area = getArea(boardState, windDirection)(i, roll - ship.hasMoved);
+    area = getUpdatedArea(i, roll - ship.hasMoved);
     selectedShipIndex = i;
   };
 
@@ -80,6 +85,15 @@
 
   const ioWind = () => {
     windDirection = changeWind();
+    area = pipe(
+      reorientArea(selectedShipIndex, ships),
+      O.chain((ship) =>
+        selectedShipIndex
+          ? O.some(getUpdatedArea(selectedShipIndex, roll - ship.hasMoved))
+          : O.none
+      ),
+      O.getOrElse(() => area)
+    );
   };
 
   const ioRoll = () => {
