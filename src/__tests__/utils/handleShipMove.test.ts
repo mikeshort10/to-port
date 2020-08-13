@@ -11,6 +11,7 @@ describe("getArea", () => {
 
     expect(playableArea).toMatchInlineSnapshot(`
       Object {
+        "113": 4,
         "21": 4,
         "22": 3,
         "23": 2,
@@ -20,6 +21,11 @@ describe("getArea", () => {
         "27": 2,
         "28": 3,
         "29": 4,
+        "67": 4,
+        "68": 3,
+        "69": 2,
+        "70": 3,
+        "71": 4,
       }
     `);
   });

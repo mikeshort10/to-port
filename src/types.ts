@@ -6,6 +6,8 @@ export type Tile = {
 
 export type Wind = 0 | 1 | 2 | 3;
 
+export type Area = Record<number, number>;
+
 export type Ship = {
   team: number;
   hasMoved: number;
@@ -23,3 +25,5 @@ export type FortIndex = typeof fortIndices[number];
 
 export const isFortIndex = (a: number): a is FortIndex =>
   fortIndices.includes(a as FortIndex);
+
+export type Board = Tile[];

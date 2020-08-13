@@ -1,5 +1,5 @@
 import { Wind } from "../types";
-import { getCoords } from "./isAdjacent";
+import { getCoords } from "./getCoords";
 
 const handleBoost = (windDirection: Wind) => {
   const windHelpsPositive = windDirection % 3 === 0;

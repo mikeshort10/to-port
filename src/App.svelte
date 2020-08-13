@@ -8,6 +8,7 @@
     initShips,
     relocateShip,
     initForts,
+    initArea,
   } from "./utils";
   import ArrowIcon from "./components/ArrowIcon.svelte";
   import { pipe, tupled } from "fp-ts/lib/function";
@@ -15,7 +16,7 @@
   import { isFortIndex } from "./types";
 
   let boardState = board;
-  let area: Record<number, number> = [];
+  let area = initArea();
   let teams = [{ color: "yellow-700" }, { color: "purple-600" }];
   let roll = 6;
   let turn = 0;
@@ -32,7 +33,6 @@
     selectedShipIndex = undefined;
     roll = 0;
     turn = (turn + 1) % teams.length;
-    console.log(turn);
   };
 
   const isTurn = ({ team }: { team: number }) => {
@@ -73,6 +73,7 @@
   };
 
   const onClick = (i: number) => (): void => {
+    console.log(i);
     const handleClick = ships[i] ? showArea : handleMoveShip;
     handleClick(i);
   };
@@ -91,7 +92,6 @@
       return "";
     }
     const color = teams[shipOrFort.team]?.color || "gray-800";
-    console.log(color);
     return `bg-${color}`;
   };
 
@@ -113,7 +113,7 @@
     </div>
     <div class="flex justify-center">
       <div class="flex flex-wrap" style={`width: ${44}rem`}>
-        {#each boardState as { isLand, isPlayer }, i}
+        {#each boardState as { isLand }, i}
           <div
             on:click={onClick(i)}
             class={`${getTeamColor(i) || (area[i] ? `bg-red-${area[i]}00` : !isLand ? 'bg-blue-500' : getTeamColor(i) || 'bg-green-500')} h-4 w-4 border border-blue-600 ${isAttackable(i) ? 'attackable' : ''}`} />

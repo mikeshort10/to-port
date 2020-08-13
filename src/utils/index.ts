@@ -1,8 +1,7 @@
-import { Ship, Fort, FortIndex } from "../types";
+import { Ship, Fort, FortIndex, Area } from "../types";
 
 export { config } from "./config";
-export { getArea } from "./handleShipMove";
-export { isAdjacent } from "./isAdjacent";
+export { getArea } from "./getPlayableArea";
 export { changeWind } from "./changeWind";
 export { rollDie } from "./rollDie";
 export { getDistance } from "./getDistance";
@@ -12,7 +11,10 @@ export const initShips = (): Record<number, Ship | undefined> => ({
   497: { team: 0, hasMoved: 0, lastTurn: -1 },
   500: { team: 0, hasMoved: 0, lastTurn: -1 },
   503: { team: 1, hasMoved: 0, lastTurn: -1 },
+  939: { team: 0, hasMoved: 0, lastTurn: -1 },
 });
+
+export const initArea = (): Area => ({});
 
 const initFort = (): Fort => ({ team: -1, lastProduced: 0 });
 
@@ -33,7 +35,6 @@ export const updateHasMoved = (
   spaces: number,
   { lastTurn, hasMoved }: Ship
 ): number => {
-  console.log(hasMoved, spaces);
   return turn === lastTurn ? hasMoved + spaces : spaces;
 };
 
@@ -48,7 +49,6 @@ export const relocateShip = (
     return ships;
   }
   const { [from]: ship, ...remainingShips } = ships;
-  console.log(ship);
   return ship
     ? {
         ...remainingShips,
