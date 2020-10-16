@@ -6,8 +6,10 @@ export const moveShip = <R>(area: Area, fn: (a: number, b: number) => R) => {
   return (i: number): O.Option<R> =>
     pipe(
       i,
-      (index): O.Option<[number, number]> =>
-        area[index] ? O.some([index, area[index]]) : O.none,
+      (index): O.Option<[number, number]> => {
+        const distance = area[index];
+        return distance ? O.some([index, distance]) : O.none;
+      },
       O.map(tupled(fn))
     );
 };

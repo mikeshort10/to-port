@@ -27,3 +27,5 @@ export const isFortIndex = (a: number): a is FortIndex =>
   fortIndices.includes(a as FortIndex);
 
 export type Board = Tile[];
+
+export type Ships = Record<number, Ship | undefined>;

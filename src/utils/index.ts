@@ -1,5 +1,6 @@
-import { Ship, Fort, FortIndex, Area } from "../types";
+import { Ship, Fort, FortIndex, Area, Ships } from "../types";
 
+export { isAttackable, getShip } from "./isAttackable";
 export { config } from "./config";
 export { getArea } from "./getPlayableArea";
 export { changeWind } from "./changeWind";
@@ -8,8 +9,8 @@ export { getDistance } from "./getDistance";
 export { moveShip } from "./moveShip";
 export { reorientArea } from "./reorientArea";
 
-export const initShips = (): Record<number, Ship | undefined> => ({
-  497: { team: 0, hasMoved: 0, lastTurn: -1 },
+export const initShips = (): Ships => ({
+  496: { team: 0, hasMoved: 0, lastTurn: -1 },
   500: { team: 0, hasMoved: 0, lastTurn: -1 },
   503: { team: 1, hasMoved: 0, lastTurn: -1 },
   939: { team: 0, hasMoved: 0, lastTurn: -1 },
@@ -44,8 +45,8 @@ export const relocateShip = (
   to: number,
   turn: number,
   spaces: number,
-  ships: Record<number, Ship | undefined>
-): Record<number, Ship | undefined> => {
+  ships: Ships
+): Ships => {
   if (from == null) {
     return ships;
   }
