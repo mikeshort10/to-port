@@ -1,0 +1,26 @@
+.stats {
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+}
+
+@mixin rotateZ($deg) {
+  -webkit-transform: rotateZ($deg);
+  transform: rotateZ($deg);
+}
+
+.rotate-0 {
+  @include rotateZ(0);
+}
+
+.rotate-90 {
+  @include rotateZ(90deg);
+}
+
+.rotate-180 {
+  @include rotateZ(180deg);
+}
+
+.rotate-270 {
+  @include rotateZ(270deg);
+}
